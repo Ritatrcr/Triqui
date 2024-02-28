@@ -94,6 +94,7 @@ def start():
 
                 board[row][column] = "X" if current_player == 1 else "O" #marks the cell with the player's symbol
                 printBoard(board)
+                
                 moves_left -= 1
 
                 #if the next player ha sthe chance to win, the game ends
@@ -124,10 +125,14 @@ def start():
                         else:
                             print("Draw")
                             break
+
                     
             else:
-                print("Cell occupied, try again")
+                print("Cell occupied, try again\n")
+                current_player = player(current_player)
         else:
-            print("Cell number out of range, try again")
+            print("Cell number out of range, try again\n")
+            current_player = player(current_player)
         current_player = player(current_player)
+        
 start()

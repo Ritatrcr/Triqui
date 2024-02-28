@@ -85,6 +85,15 @@ def start():
     while True:
         print("Player", current_player, "'s Turn")
         cell = int(input("Enter the cell number (1-9): "))
+        while True:
+            try:
+                cell = int(input("Enter the cell number (1-9): "))
+                if 1 <= cell <= 9:
+                    break  # Salir del bucle si la entrada es válida
+                else:
+                    print("Cell number must be between 1 and 9")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
 
         if 1 <= cell <= 9: #verifies if the cell number is in the range
 

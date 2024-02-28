@@ -1,4 +1,3 @@
-Triqui Game
 This Python program allows players to play the classic game of Tic-Tac-Toe (also known as "Noughts and Crosses"). Players take turns placing their marks ('X' or 'O') on a 3x3 grid. The first player to get three of their marks in a row, column, or diagonal wins the game. If all cells are filled and no player achieves a winning combination, the game ends in a draw.
 
 Instructions

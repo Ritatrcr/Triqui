@@ -13,20 +13,6 @@ def printBoard(matrix):
 def player(player):
     return 2 if player == 1 else 1
 
-"""
-def win(matrix, player): #checks win
-    win_lines = []
-    # Rows and Columns
-    for i in range(3):
-        win_lines.append((matrix[i][0], matrix[i][1], matrix[i][2]))  # Rows
-        win_lines.append((matrix[0][i], matrix[1][i], matrix[2][i]))  # Columns
-
-    # Diagonals
-    win_lines.append((matrix[0][0], matrix[1][1], matrix[2][2]))
-    win_lines.append((matrix[0][2], matrix[1][1], matrix[2][0]))
-    return any(all(cell == player for cell in line) for line in win_lines) 
-"""
-
 def check_win_next_move(board, player): #checks if in the next move the player can win
     # rows
     for row in board:

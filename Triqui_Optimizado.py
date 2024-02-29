@@ -82,66 +82,64 @@ def start():
     printBoard(board)
     current_player = 1
     moves_left = 9
+    
     while True:
         print("Player", current_player, "'s Turn")
-        cell = int(input("Enter the cell number (1-9): "))
-        while True:
-            try:
-                cell = int(input("Enter the cell number (1-9): "))
-                if 1 <= cell <= 9:
-                    break  # Salir del bucle si la entrada es válida
-                else:
-                    print("Cell number must be between 1 and 9")
-            except ValueError:
-                print("Invalid input. Please enter a number.")
 
-        if 1 <= cell <= 9: #verifies if the cell number is in the range
+        try:
+            # Solicitar al usuario que ingrese un número de celda
+            cell = int(input("Enter the cell number (1-9): "))
 
-            row, column = (cell - 1) // 3, (cell - 1) % 3#converts the cell number to row and column
+        
 
-            if board[row][column] not in ("X", "O"):#verifies if the cell is empty
+            if 1 <= cell <= 9: #verifies if the cell number is in the range
 
-                board[row][column] = "X" if current_player == 1 else "O" #marks the cell with the player's symbol
-                printBoard(board)
-                
-                moves_left -= 1
+                row, column = (cell - 1) // 3, (cell - 1) % 3#converts the cell number to row and column
 
-                #if the next player ha sthe chance to win, the game ends
-                if check_win_next_move(board, "X") and player(current_player) == 1:
-                    print("Player 1 wins!")
-                    break
-                elif check_win_next_move(board, "O") and player(current_player) == 2:    
-                    print("Player 2 wins!")
-                    break
+                if board[row][column] not in ("X", "O"):#verifies if the cell is empty
 
-                
-                if moves_left <= 4:
-                    if moves_left ==4 and check_two_options(board, "X") :
-                        print("Player 1 already won!")
+                    board[row][column] = "X" if current_player == 1 else "O" #marks the cell with the player's symbol
+                    printBoard(board)
+                    
+                    moves_left -= 1
+
+                    #if the next player ha sthe chance to win, the game ends
+                    if check_win_next_move(board, "X") and player(current_player) == 1:
+                        print("Player 1 wins!")
                         break
-                    elif moves_left == 3 and check_win_next_move(board, "X"):
-                        print("Player 1 already won!")
+                    elif check_win_next_move(board, "O") and player(current_player) == 2:    
+                        print("Player 2 wins!")
                         break
-                    else:
-                        if moves_left == 2 and check_two_options(board, "O"):
-                            print("Player 2 wins!")
-                            break
-                        elif moves_left == 1 and check_win_next_move(board, "O"):
-                            print("Player 2 wins!")
-                            break
-
-                        #if there are no options of winning, then the game ends in a draw
-                        else:
-                            print("Draw")
-                            break
 
                     
+                    if moves_left <= 4:
+                        if moves_left ==4 and check_two_options(board, "X") :
+                            print("Player 1 already won!")
+                            break
+                        elif moves_left == 3 and check_win_next_move(board, "X"):
+                            print("Player 1 already won!")
+                            break
+                        else:
+                            if moves_left == 2 and check_two_options(board, "O"):
+                                print("Player 2 wins!")
+                                break
+                            elif moves_left == 1 and check_win_next_move(board, "O"):
+                                print("Player 2 wins!")
+                                break
+
+                            #if there are no options of winning, then the game ends in a draw
+                            else:
+                                print("Draw")
+                                break    
+                else:
+                    print("Cell occupied, try again\n")
+                    current_player = player(current_player)
             else:
-                print("Cell occupied, try again\n")
+                print("Cell number out of range, try again\n")
                 current_player = player(current_player)
-        else:
-            print("Cell number out of range, try again\n")
             current_player = player(current_player)
-        current_player = player(current_player)
+            
+        except ValueError:
+                print("Error: The input must be an integer\n")
         
 start()

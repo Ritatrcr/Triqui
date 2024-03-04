@@ -75,9 +75,6 @@ def start():
         try:
             # Solicitar al usuario que ingrese un número de celda
             cell = int(input("Enter the cell number (1-9): "))
-
-        
-
             if 1 <= cell <= 9: #verifies if the cell number is in the range
 
                 row, column = (cell - 1) // 3, (cell - 1) % 3#converts the cell number to row and column
@@ -106,17 +103,9 @@ def start():
                             print("Player 1 already won!")
                             break
                         else:
-                            if moves_left == 2 and check_two_options(board, "O"):
-                                print("Player 2 wins!")
-                                break
-                            elif moves_left == 1 and check_win_next_move(board, "O"):
-                                print("Player 2 wins!")
-                                break
-
-                            #if there are no options of winning, then the game ends in a draw
-                            else:
-                                print("Draw")
-                                break    
+                        #if there are no options of winning, then the game ends in a draw
+                            print("Draw")
+                            break    
                 else:
                     print("Cell occupied, try again\n")
                     current_player = player(current_player)

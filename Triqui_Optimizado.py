@@ -61,7 +61,24 @@ def check_two_options(board, player): #checks if the player has two options to w
         return True
     else:
         return False
-
+    
+def jugadaOptima (board, player):
+    # rows
+    for row in board:
+        if row.count(player) == 2 and row.count(' ') == 1:
+            return row.index(' ')
+    # columns
+    for col in range(3):
+        column = [board[row][col] for row in range(3)]
+        if column.count(player) == 2 and column.count(' ') == 1:
+            return column.index(' ') + col*3
+    # diagonals
+    diagonal1 = [board[i][i] for i in range(3)]
+    diagonal2 = [board[i][2 - i] for i in range(3)]
+    if diagonal2.count(player) == 2 and diagonal2.count(' ') == 1:
+        empty_index = diagonal2.index(' ')
+        return empty_index + (2 - empty_index) * 2
+    return -1
 
 def start():
     board = [[" " for _ in range(3)] for _ in range(3)]
@@ -83,11 +100,22 @@ def start():
 
                     board[row][column] = "X" if current_player == 1 else "O" #marks the cell with the player's symbol
                     printBoard(board)
+
+
+                    if check_win_next_move(board, "X") and current_player == 2:
+                        print ("La jugada más óptima para X es: ", jugadaOptima(board, "X") + 1)
+                    elif jugadaOptima(board, "O") != -1 and current_player == 2: 
+                        print ("La jugada más optima para X es: ", jugadaOptima(board, "O") + 1)
+
+                    if check_win_next_move(board, "O") and current_player == 1:
+                        print ("La jugada más óptima para O es: ", jugadaOptima(board, "O") + 1)   
+                    elif jugadaOptima(board, "X") != -1 and current_player == 1:
+                        print ("La jugada más optima para O es: ", jugadaOptima(board, "X") + 1) 
                     
                     moves_left -= 1
 
                     #if the next player ha sthe chance to win, the game ends
-                    if check_win_next_move(board, "X") and player(current_player) == 1:
+                    """if check_win_next_move(board, "X") and player(current_player) == 1:
                         print("Player 1 wins!")
                         break
                     elif check_win_next_move(board, "O") and player(current_player) == 2:    
@@ -105,7 +133,7 @@ def start():
                         else:
                         #if there are no options of winning, then the game ends in a draw
                             print("Draw")
-                            break    
+                            break    """
                 else:
                     print("Cell occupied, try again\n")
                     current_player = player(current_player)

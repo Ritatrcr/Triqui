@@ -75,6 +75,9 @@ def jugadaOptima (board, player):
     # diagonals
     diagonal1 = [board[i][i] for i in range(3)]
     diagonal2 = [board[i][2 - i] for i in range(3)]
+    if diagonal1.count(player) == 2 and diagonal2.count(' ') == 1:
+        empty_index = diagonal1.index(' ')
+        return empty_index + (2 - empty_index) * 2
     if diagonal2.count(player) == 2 and diagonal2.count(' ') == 1:
         empty_index = diagonal2.index(' ')
         return empty_index + (2 - empty_index) * 2
@@ -88,7 +91,15 @@ def start():
     
     while True:
         print("Player", current_player, "'s Turn")
+        if check_win_next_move(board, "X") and current_player == 2:
+            print ("La jugada más óptima para O es (win next move): ", jugadaOptima(board, "X") + 1)
+        elif jugadaOptima(board, "X") != -1 and current_player == 2: 
+            print ("La jugada más optima para O es: ", jugadaOptima(board, "X") + 1)
 
+        if check_win_next_move(board, "O") and current_player == 1:
+            print ("La jugada más óptima para X es (win next move): ", jugadaOptima(board, "O") + 1)   
+        elif jugadaOptima(board, "O") != -1 and current_player == 1:
+            print ("La jugada más optima para X es: ", jugadaOptima(board, "O") + 1)
         try:
             # Solicitar al usuario que ingrese un número de celda
             cell = int(input("Enter the cell number (1-9): "))
@@ -102,15 +113,7 @@ def start():
                     printBoard(board)
 
 
-                    if check_win_next_move(board, "X") and current_player == 2:
-                        print ("La jugada más óptima para X es: ", jugadaOptima(board, "X") + 1)
-                    elif jugadaOptima(board, "O") != -1 and current_player == 2: 
-                        print ("La jugada más optima para X es: ", jugadaOptima(board, "O") + 1)
-
-                    if check_win_next_move(board, "O") and current_player == 1:
-                        print ("La jugada más óptima para O es: ", jugadaOptima(board, "O") + 1)   
-                    elif jugadaOptima(board, "X") != -1 and current_player == 1:
-                        print ("La jugada más optima para O es: ", jugadaOptima(board, "X") + 1) 
+                    
                     
                     moves_left -= 1
 
